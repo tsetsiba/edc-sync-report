@@ -5,7 +5,7 @@ from bcpp_subject.models import SubjectVisit, SubjectConsent
 from bcpp_subject.sync_models import sync_models
 from bcpp_subject.models.model_mixins import CrfModelMixin
 
-from .verification_file import VerificationFile
+from edc_sync_report.classes.verification_file import VerificationFile
 
 class MismatchVerification(Exception):
     pass

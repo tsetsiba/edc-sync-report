@@ -1,6 +1,6 @@
 from bcpp_subject.models import SubjectConsent, SubjectVisit
 
-from .verification_file import VerificationFile
+from edc_sync_report.classes.verification_file import VerificationFile
 
 
 class SyncData:
