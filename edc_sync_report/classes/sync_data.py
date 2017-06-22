@@ -1,9 +1,10 @@
+from django.apps import apps as django_apps
+
 from bcpp_subject.models import SubjectConsent, SubjectVisit
+from .verification_file import VerificationFile
 
-from edc_sync_report.classes.verification_file import VerificationFile
 
-
-class SyncData:
+class VerifySyncData:
     
     file_reader = VerificationFile
 
@@ -16,7 +17,7 @@ class SyncData:
         pass
     
 
-class SubjectConsentData(SyncData):
+class VerifySubjectConsentData(VerifySyncData):
     
     def __init__(self, filename=None, *args, **kwargs):
         super().__init__(filename=filename)
@@ -35,7 +36,7 @@ class SubjectConsentData(SyncData):
         return is_synchronized
 
 
-class SubjectVisitData(SyncData):
+class VerifySubjectVisitData(VerifySyncData):
     
     def __init__(self, filename=None, *args, **kwargs):
         super().__init__(filename=filename)
@@ -54,7 +55,7 @@ class SubjectVisitData(SyncData):
         return is_synchronized
 
 
-class CrfsData(SyncData):
+class VerifyCrfsData(VerifySyncData):
     
     def __init__(self, filename=None, *args, **kwargs):
         super().__init__(filename=filename)
