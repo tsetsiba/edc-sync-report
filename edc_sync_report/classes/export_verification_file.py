@@ -1,3 +1,5 @@
+import os
+
 from django.apps import apps as django_apps
 from datetime import datetime
 
@@ -23,6 +25,10 @@ class ExportVerificationJsonFile:
         self.verbose = verbose
 
     def subject_consents_file(self):
+        app = django_apps.get_app_configs('edc_sync_reports')
+        filename = '{}_consents_data-{}.json'.format(
+            self.community, datetime.today().strftime("%Y%m%d%H%m"))
+        self.filename = os.path.join(app.reports, filename)
         data = []
         subject_visits = SubjectVisit.objects.filter(
             survey=self.survey,
@@ -39,9 +45,8 @@ class ExportVerificationJsonFile:
                 subject_consent.household_member.household_structure.household.plot.plot_identifier)
             data.append(
                 {str(SubjectConsent._meta.label_lower): consent_filter})
-        filename = '{}_consents_data-{}.json'.format(
-            self.community, datetime.today().strftime("%Y%m%d%H%m"))
-        self.file_write(filename=filename).write(data=data)
+        self.file_write(
+            filename=self.filename).write(data=data)
         if self.verbose:
             print("Created {} with {}".format(filename, len(data)))
     
@@ -53,8 +58,10 @@ class ExportVerificationJsonFile:
         for visit in subject_visits:
             data.append(
                 {str(SubjectVisit._meta.label_lower): visit.natural_key()})
-        filename = '{}_subjectvisits_data-{}.json'.format(
+        app = django_apps.get_app_configs('edc_sync_reports')
+        filename = '{}_consents_data-{}.json'.format(
             self.community, datetime.today().strftime("%Y%m%d%H%m"))
+        filename = os.path.join(app.reports, filename)
         self.file_write(filename=filename).write(data=data)
         if self.verbose:
             print("Created {} with {}".format(filename, len(data)))
@@ -91,8 +98,10 @@ class ExportVerificationJsonFile:
                 except:
                     print(model)
             data.append(temp_data)
-        filename = '{}_crfs_data-{}.json'.format(
+        filename = '{}_consents_data-{}.json'.format(
             self.community, datetime.today().strftime("%Y%m%d%H%m"))
+        app = django_apps.get_app_configs('edc_sync_reports')
+        filename = os.path.join(app.reports, filename)
         self.file_write(filename=filename).write(data=data)
         if self.verbose:
             print("Created {} with {}".format(filename, len(data)))
