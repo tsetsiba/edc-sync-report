@@ -20,4 +20,4 @@ class VerificationFile:
     
     def write(self, data=None):
         with open(self.filename, 'w') as f:
-            json.dump(self.data or data, f)
+            json.dump(data, f)

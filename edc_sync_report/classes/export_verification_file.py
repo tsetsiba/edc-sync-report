@@ -66,7 +66,7 @@ class ExportVerificationJsonFile:
             return True
         return False
         
-    def crfs_verification_file(self):
+    def crfs_file(self):
         data = []
         model_label_lowers = [
             label for label in sync_models if not self.is_ignored(label)]
