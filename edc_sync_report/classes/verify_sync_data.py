@@ -1,11 +1,11 @@
 from django.apps import apps as django_apps
 
-from .verification_file import VerificationFile
+from edc_sync_report.classes.confirmation_file import ConfirmationFile
 
 
-class VerifySyncData:
+class ConfirmSyncData:
 
-    file_reader = VerificationFile
+    file_reader = ConfirmationFile
 
     def __init__(self, filename=None, *args, **kwargs):
         self.filename = filename
@@ -25,7 +25,7 @@ class VerifySyncData:
         return is_verify
 
 
-class VerifySubjectConsentData(VerifySyncData):
+class ConfirmSubjectConsentData(ConfirmSyncData):
 
     def __init__(self, consent_model=None, filename=None, *args, **kwargs):
         super().__init__(filename=filename)
@@ -45,7 +45,7 @@ class VerifySubjectConsentData(VerifySyncData):
         return is_synchronized
 
 
-class VerifySubjectVisitData(VerifySyncData):
+class ConfirmSubjectVisitData(ConfirmSyncData):
 
     def __init__(self, subject_visit=None, filename=None, *args, **kwargs):
         super().__init__(filename=filename)

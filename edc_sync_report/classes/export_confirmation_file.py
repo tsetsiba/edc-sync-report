@@ -7,27 +7,26 @@ from bcpp_subject.models import SubjectVisit, SubjectConsent
 from bcpp_subject.sync_models import sync_models
 from bcpp_subject.models.model_mixins import CrfModelMixin
 
-from ..classes.verification_file import VerificationFile
+from ..classes.confirmation_file import ConfirmationFile
 
 
 class MismatchVerification(Exception):
     pass
 
 
-class ExportVerificationJsonFile:
+class ExportConfirmationFile:
 
-    file_writer = VerificationFile
+    file_writer = ConfirmationFile
 
-    def __init__(self, subject_visit=None, survey=None,
+    def __init__(self, survey=None,
                  subject_identifiers=None, community=None, verbose=None):
         self.survey = survey
         self.subject_identifiers = subject_identifiers
         self.community = community
         self.verbose = verbose
-        self.subject_visit = None
 
     def subject_visits(self):
-        subject_visits = self.subject_visit.objects.filter(
+        subject_visits = SubjectVisit.objects.filter(
             survey=self.survey,
             subject_identifier__in=self.subject_identifiers)
         return subject_visits
@@ -54,7 +53,7 @@ class ExportVerificationJsonFile:
         if self.verbose:
             print("Created {} with {}".format(filename, len(data)))
 
-    def subject_visits_file(self, ess_community=None):
+    def create_subjectvisits_file(self, ess_community=None):
         data = []
         for visit in self.subject_visits():
             data.append(

@@ -5,7 +5,7 @@ class InvalidFilename(Exception):
     pass
 
 
-class VerificationFile:
+class ConfirmationFile:
 
     def __init__(self, filename=None):
         self.filename = filename
