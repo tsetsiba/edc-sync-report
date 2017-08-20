@@ -5,7 +5,7 @@ class InvalidFilename(Exception):
     pass
 
 
-class ConfirmationFile:
+class SyncFile:
 
     def __init__(self, filename=None):
         self.filename = filename
